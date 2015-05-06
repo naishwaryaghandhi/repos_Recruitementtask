@@ -33,6 +33,7 @@ public class ItemCalculation extends BaseClass {
 		String[] array = price.split("\\£");
 		String value = array[1].replaceAll("\\s", "");
 		float itemprice = Float.valueOf(value);
+		System.out.println("ITEM CALCULATION:\n");
 		System.out.println("Price of the selected item is :" + itemprice);
 
 		//Select quantity of the selected item
@@ -45,11 +46,10 @@ public class ItemCalculation extends BaseClass {
 	    Select se1 = new Select(driver.findElement(By.name("quantity")));
 	    String selectedquantity = se1.getFirstSelectedOption().getText();
 	    int quantity = Integer.parseInt(selectedquantity);
-	    System.out.println(quantity);
+	    System.out.println("Quantity of the selected item :" +quantity);
 	    
 	    //Find the actual price of the selected item
-	    float actualIntegerVal = itemprice * quantity;
-	    System.out.println(actualIntegerVal);
+	    float expectedValue = itemprice * quantity;
 	    Thread.sleep(3000);
 	    
 	    //Get the Goods total from the site
@@ -59,22 +59,22 @@ public class ItemCalculation extends BaseClass {
 	    String[] actual_value = value1.split("\\,");
 	    String actual_value1 = actual_value[0]+actual_value[1];
 	    String actual_value2 = actual_value1.replaceAll("\\s", "");
-	    float expectedIntegerVal = Float.valueOf(actual_value2);
-	    System.out.println(expectedIntegerVal);
+	    float actualValue = Float.valueOf(actual_value2);
 	    
 	    //Method call to compare actual and expected values
-	    compareIntegerVals(actualIntegerVal,expectedIntegerVal);
+	    compareIntegerVals(expectedValue,actualValue);
 		}
 	
 	
-	public boolean compareIntegerVals(float actualIntegerVal, float expectedIntegerVal){
+	public boolean compareIntegerVals(float expectedValue, float actualValue){
 		SoftAssert Soft_Assert = new SoftAssert();
 		try{
 		   //If this assertion will fail, It will throw exception and catch block will be executed.
-		   Assert.assertEquals(actualIntegerVal, expectedIntegerVal);
+		   Assert.assertEquals(expectedValue, actualValue);
+		   System.out.println("Actual value: "+actualValue+" equals Expected Value: "+expectedValue);
 		   }catch(Throwable t){
 		    //This will throw soft assertion to keep continue your execution even assertion failure 
-		    Soft_Assert.fail("Actual Value '"+actualIntegerVal+"' And Expected Value '"+expectedIntegerVal+"' Do Not Match.");
+		    Soft_Assert.fail("Actual value: "+actualValue+" and Expected Value: "+expectedValue+"' Do Not Match.");
 		    //If Integer values will not match, return false.
 		    return false;
 		    

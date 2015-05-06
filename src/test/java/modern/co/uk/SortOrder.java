@@ -8,7 +8,7 @@ public class SortOrder extends BaseClass {
 	public void sortorder() throws InterruptedException{
 		
 		driver.findElement(By.linkText("Sofas")).click();
-		
+		System.out.println("\nSORT ORDER:\n");
 		// Sort the product backlog according to the selected sort value in the item page
 		for (int i=0; i<6; i++){
 			new Select(driver.findElement(By.className("sorts"))).selectByIndex(i);

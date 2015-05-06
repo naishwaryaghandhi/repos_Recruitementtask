@@ -21,6 +21,7 @@ public class BaseClass {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get(baseUrl);
+		driver.manage().window().maximize();
 	}
 
 	@Test
